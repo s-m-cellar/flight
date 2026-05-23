@@ -35,7 +35,7 @@ async function fetchFlights() {
     }
 
     try {
-        const response = await fetch("https://opensky-network.org/api/states/all");
+        const response = await fetch("https://cors-anywhere.herokuapp.com/https://opensky-network.org/api/states/all");
         const data = await response.json();
 
         if (!data.states) {
