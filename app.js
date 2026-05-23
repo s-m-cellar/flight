@@ -1,7 +1,14 @@
 let soundEnabled = true;
-            document.getElementById("status").innerText = "NO DATA";
-            return;
-        }
+
+function fetchFlights() {
+
+    const lat = parseFloat(localStorage.getItem("homeLat"));
+    const lon = parseFloat(localStorage.getItem("homeLon"));
+
+    if (isNaN(lat) || isNaN(lon)) {
+        document.getElementById("status").innerText = "NO DATA";
+        return;
+    }
 
         let nearestPlane = null;
         let nearestDistance = 999999;
