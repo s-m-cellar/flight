@@ -1,7 +1,6 @@
 console.log("JS LOADED");
 
 let soundEnabled = true;
-
 const ping = new Audio("ping.mp3");
 
 function haversine(lat1, lon1, lat2, lon2) {
@@ -11,14 +10,12 @@ function haversine(lat1, lon1, lat2, lon2) {
     const dLon = (lon2 - lon1) * Math.PI / 180;
 
     const a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.sin(dLat / 2) ** 2 +
         Math.cos(lat1 * Math.PI / 180) *
         Math.cos(lat2 * Math.PI / 180) *
-        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        Math.sin(dLon / 2) ** 2;
 
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-    return R * c;
+    return 2 * R * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
 function playPing() {
@@ -40,17 +37,16 @@ async function fetchFlights() {
 
     try {
 
-        const url = "https://opensky-network.org/api/states/all";
-        const response = await fetch(url);
+        const response = await fetch("https://opensky-network.org/api/states/all");
         const data = await response.json();
 
         if (!data.states) {
-            document.getElementById("status").innerText = "NO AIRCRAFT DATA";
+            document.getElementById("status").innerText = "NO DATA";
             return;
         }
 
         let nearestPlane = null;
-        let nearestDistance = 999999;
+        let nearestDistance = Infinity;
 
         for (const plane of data.states) {
 
@@ -69,50 +65,39 @@ async function fetchFlights() {
 
         if (nearestPlane) {
 
-            const callsign = nearestPlane[1]?.trim() || "UNKNOWN";
-            const country = nearestPlane[2] || "UNKNOWN";
-            const altitude = nearestPlane[7]
-                ? Math.round(nearestPlane[7]) + " m"
-                : "UNKNOWN";
+            document.getElementById("callsign").innerText =
+                nearestPlane[1]?.trim() || "UNKNOWN";
 
-            const velocity = nearestPlane[9]
-                ? Math.round(nearestPlane[9] * 3.6) + " km/h"
-                : "UNKNOWN";
+            document.getElementById("country").innerText =
+                nearestPlane[2] || "UNKNOWN";
 
-            document.getElementById("callsign").innerText = callsign;
-            document.getElementById("country").innerText = country;
-            document.getElementById("altitude").innerText = altitude;
-            document.getElementById("speed").innerText = velocity;
+            document.getElementById("altitude").innerText =
+                nearestPlane[7] ? Math.round(nearestPlane[7]) + " m" : "UNKNOWN";
+
+            document.getElementById("speed").innerText =
+                nearestPlane[9] ? Math.round(nearestPlane[9] * 3.6) + " km/h" : "UNKNOWN";
+
             document.getElementById("distance").innerText =
                 nearestDistance.toFixed(1) + " km";
 
             document.getElementById("status").innerText =
-                "TRACKING NEAREST AIRCRAFT";
+                "TRACKING AIRCRAFT";
 
-            if (nearestDistance < 50) {
-                playPing();
-            }
+            if (nearestDistance < 50) playPing();
 
         } else {
             document.getElementById("status").innerText = "NO AIRCRAFT FOUND";
         }
 
     } catch (err) {
-
         console.error(err);
-
-        document.getElementById("status").innerText =
-            "ERROR FETCHING DATA";
+        document.getElementById("status").innerText = "FETCH ERROR";
     }
 }
 
 function saveLocation() {
-    const lat = document.getElementById("latInput").value;
-    const lon = document.getElementById("lonInput").value;
-
-    localStorage.setItem("homeLat", lat);
-    localStorage.setItem("homeLon", lon);
-
+    localStorage.setItem("homeLat", document.getElementById("latInput").value);
+    localStorage.setItem("homeLon", document.getElementById("lonInput").value);
     document.getElementById("status").innerText = "LOCATION SAVED";
 }
 
