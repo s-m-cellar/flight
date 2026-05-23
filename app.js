@@ -26,7 +26,6 @@ function playPing() {
 }
 
 async function fetchFlights() {
-
     const lat = parseFloat(localStorage.getItem("homeLat"));
     const lon = parseFloat(localStorage.getItem("homeLon"));
 
@@ -36,7 +35,6 @@ async function fetchFlights() {
     }
 
     try {
-
         const response = await fetch("https://opensky-network.org/api/states/all");
         const data = await response.json();
 
@@ -49,7 +47,6 @@ async function fetchFlights() {
         let nearestDistance = Infinity;
 
         for (const plane of data.states) {
-
             const planeLat = plane[6];
             const planeLon = plane[5];
 
@@ -64,7 +61,6 @@ async function fetchFlights() {
         }
 
         if (nearestPlane) {
-
             document.getElementById("callsign").innerText =
                 nearestPlane[1]?.trim() || "UNKNOWN";
 
