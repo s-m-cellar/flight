@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>NEAREST AIRCRAFT</h1>
+
+    <div class="card">
+
+        <div class="row">
+            <label>Latitude</label>
+            <input type="number" id="latInput" step="0.000001">
+        </div>
+
+        <div class="row">
+            <label>Longitude</label>
+            <input type="number" id="lonInput" step="0.000001">
+        </div>
+
+        <button onclick="saveLocation()">SAVE LOCATION</button>
+
+    </div>
+
+    <div class="card">
+
+        <div id="status">WAITING FOR DATA...</div>
+
+        <div class="flightData">
+            <div><span>CALLSIGN:</span> <span id="callsign">---</span></div>
+            <div><span>ALTITUDE:</span> <span id="altitude">---</span></div>
+            <div><span>DISTANCE:</span> <span id="distance">---</span></div>
+            <div><span>SPEED:</span> <span id="speed">---</span></div>
+            <div><span>COUNTRY:</span> <span id="country">---</span></div>
+        </div>
+
+    </div>
+
+    <div class="buttonRow">
+        <button onclick="toggleSound()" id="soundButton">SOUND ON</button>
+        <button onclick="manualRefresh()">REFRESH</button>
+    </div>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>

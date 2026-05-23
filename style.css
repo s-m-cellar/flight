@@ -1,0 +1,70 @@
+body {
+    color: #00ff66;
+    font-family: Consolas, monospace;
+}
+
+.container {
+    padding: 20px;
+    max-width: 700px;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+    letter-spacing: 3px;
+}
+
+.card {
+    border: 2px solid #00ff66;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 15px #00ff66;
+}
+
+.row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input {
+    padding: 10px;
+    background: #001a00;
+    border: 1px solid #00ff66;
+    color: #00ff66;
+    font-size: 16px;
+}
+
+button {
+    background: #002b00;
+    border: 1px solid #00ff66;
+    color: #00ff66;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #004400;
+}
+
+.flightData {
+    font-size: 20px;
+    line-height: 2;
+}
+
+.buttonRow {
+    display: flex;
+    gap: 10px;
+}
+
+#status {
+    margin-bottom: 20px;
+    font-size: 18px;
+}
