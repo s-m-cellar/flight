@@ -35,8 +35,9 @@ async function fetchFlights() {
     }
 
     try {
-        const response = await fetch("https://cors-anywhere.herokuapp.com/https://opensky-network.org/api/states/all");
-        const data = await response.json();
+        const response = await fetch("https://api.allorigins.win/get?url=" + encodeURIComponent("https://opensky-network.org/api/states/all"));
+        const result = await response.json();
+        const data = JSON.parse(result.contents);
 
         if (!data.states) {
             document.getElementById("status").innerText = "NO DATA";
